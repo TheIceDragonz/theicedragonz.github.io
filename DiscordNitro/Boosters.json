@@ -1,7 +1,27 @@
-{
-  "boosters": [
-    "1",
-    "2",
-    "3"
-  ]
-}
+[
+    {
+      "username": "user1",
+      "imageUrl": "http://example.com/image1.jpg",
+      "boostSince": "2023-01-01T12:00:00Z"
+    },
+    {
+      "username": "user2",
+      "imageUrl": "http://example.com/image2.jpg",
+      "boostSince": "2023-02-01T12:00:00Z"
+    },
+    {
+      "username": "user3",
+      "imageUrl": "http://example.com/image3.jpg",
+      "boostSince": "2023-03-01T12:00:00Z"
+    },
+    {
+      "username": "user4",
+      "imageUrl": "http://example.com/image4.jpg",
+      "boostSince": "2023-04-01T12:00:00Z"
+    },
+    {
+      "username": "user5",
+      "imageUrl": "http://example.com/image5.jpg",
+      "boostSince": "2023-05-01T12:00:00Z"
+    }
+]
