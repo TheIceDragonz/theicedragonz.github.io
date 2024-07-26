@@ -1,27 +1,12 @@
 [
-    {
-      "username": "user1",
-      "imageUrl": "http://example.com/image1.jpg",
-      "boostSince": "2023-01-01T12:00:00Z"
-    },
-    {
-      "username": "user2",
-      "imageUrl": "http://example.com/image2.jpg",
-      "boostSince": "2023-02-01T12:00:00Z"
-    },
-    {
-      "username": "user3",
-      "imageUrl": "http://example.com/image3.jpg",
-      "boostSince": "2023-03-01T12:00:00Z"
-    },
-    {
-      "username": "user4",
-      "imageUrl": "http://example.com/image4.jpg",
-      "boostSince": "2023-04-01T12:00:00Z"
-    },
-    {
-      "username": "user5",
-      "imageUrl": "http://example.com/image5.jpg",
-      "boostSince": "2023-05-01T12:00:00Z"
-    }
+  {
+    "username": "smollcoco",
+    "imageUrl": "https://cdn.discordapp.com/avatars/939231060754055299/8da860f476231f6c4e964a965a88a720.webp",
+    "boostSince": "2023-12-29T11:42:38.744Z"
+  },
+  {
+    "username": "redscorpion987",
+    "imageUrl": "https://cdn.discordapp.com/avatars/721825780916682832/a_f66220cfe10abdfcaa4e08655c2f79f9.gif",
+    "boostSince": "2023-10-24T16:19:40.988Z"
+  }
 ]
