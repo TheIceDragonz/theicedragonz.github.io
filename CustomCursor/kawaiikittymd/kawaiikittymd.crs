@@ -1,0 +1,51 @@
+﻿[UpArrow]
+Path=Alternate Select Kawaii Kitty.ani
+
+[Wait]
+Path=Busy Kawaii Kitty.ani
+
+[Crosshair]
+Path=Precision Select crosshair Kawaii Kitty.cur
+
+[SizeNWSE]
+Path=Diagonal Resize 1 Kawaii Kitty.cur
+
+[SizeNESW]
+Path=Diagonal Resize 2 Kawaii Kitty.cur
+
+[NWPen]
+Path=Handwriting Kawaii Kitty.cur
+
+[Help]
+Path=Help Select Kawaii Kitty.ani
+
+[SizeWE]
+Path=Horizontal Resize Kawaii Kitty.cur
+
+[Hand]
+Path=Link Select Kawaii Kitty.ani
+
+[SizeAll]
+Path=Move Select Kawaii Kitty.cur
+
+[Arrow]
+Path=Normal Select Kawaii Kitty.cur
+
+[IBeam]
+Path=Text Select Kawaii Kitty.cur
+
+[No]
+Path=Unavailable Kawaii Kitty.ani
+
+[SizeNS]
+Path=Vertical Resize Kawaii Kitty.cur
+
+[AppStarting]
+Path=Working in background Kawaii Kitty.ani
+
+[Pin]
+Path=Location Select.cur
+
+[Person]
+Path=Person Select.cur
+
