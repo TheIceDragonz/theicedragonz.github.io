@@ -166,20 +166,24 @@
     }
 
     async function loadBoosters() {
-        try {
-            const response = await fetch('DiscordNitro/Boosters.json', { cache: 'no-cache' });
-            if (!response.ok) throw new Error('Network error');
-            const data = await response.json();
-            if (Array.isArray(data) && data.length > 0) {
-                renderBoosters(data);
-                return;
+        const pathsToTry = ['DiscordNitro/Boosters.json', '../DiscordNitro/Boosters.json', '/DiscordNitro/Boosters.json'];
+        for (let path of pathsToTry) {
+            try {
+                const response = await fetch(path, { cache: 'no-cache' });
+                if (response.ok) {
+                    const data = await response.json();
+                    if (Array.isArray(data) && data.length > 0) {
+                        renderBoosters(data);
+                        return;
+                    }
+                }
+            } catch (err) {
+                // Try next path
             }
-            throw new Error('Empty data');
-        } catch (err) {
-            // Render fallback if fetch fails or running locally on file://
-            console.info('Loaded booster fallback data');
-            renderBoosters(FALLBACK_BOOSTERS);
         }
+        // Render fallback if fetch fails or running locally on file://
+        console.info('Loaded booster fallback data');
+        renderBoosters(FALLBACK_BOOSTERS);
     }
 
     document.addEventListener('DOMContentLoaded', loadBoosters);
