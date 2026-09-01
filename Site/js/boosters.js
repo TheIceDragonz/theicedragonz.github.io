@@ -106,7 +106,7 @@
     }
 
     async function loadBoosters() {
-        const pathsToTry = ['DiscordNitro/Boosters.json', '../DiscordNitro/Boosters.json', '/DiscordNitro/Boosters.json'];
+        const pathsToTry = ['/DiscordNitro/Boosters.json'];
         for (let path of pathsToTry) {
             try {
                 const response = await fetch(path, { cache: 'no-cache' });
