@@ -1,11 +1,4 @@
-/**
- * TheIceDragonz - Ultra Fast & Smooth Off-Screen Pre-Rendered Snowflakes
- * Features:
- * - 60 FPS Guaranteed with pre-rendered offscreen sprites
- * - Clickable fiocchi di neve with instant pop animation
- * - 0.5s Pusheen rice cursor
- * - Persistent Snowflake Catch Counter saved in localStorage across sessions and pages
- */
+
 
 (function () {
     'use strict';
@@ -18,23 +11,23 @@
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Number of snowflakes: optimized for butter-smooth 60fps
+    
     const snowflakeCount = 18;
     const snowflakes = [];
 
-    // Load saved count from localStorage
+    
     const STORAGE_KEY = 'theicedragonz_snowflakes_caught';
     let caughtCount = parseInt(localStorage.getItem(STORAGE_KEY), 10) || 0;
     let cursorTimer = null;
 
-    // Pre-render snowflake sprites in 3 color variants (Cyan, Amethyst, White)
+    
     const spriteSize = 48;
     const halfSprite = spriteSize / 2;
     const spriteCanvases = [];
     const colors = [
-        'rgba(56, 189, 248, 0.85)',   // Cyan
-        'rgba(192, 132, 252, 0.85)',  // Amethyst
-        'rgba(240, 249, 255, 0.9)'    // Ice White
+        'rgba(56, 189, 248, 0.85)',   
+        'rgba(192, 132, 252, 0.85)',  
+        'rgba(240, 249, 255, 0.9)'    
     ];
 
     colors.forEach(col => {
@@ -57,7 +50,7 @@
             offCtx.lineTo(0, armRadius);
             offCtx.stroke();
 
-            // Branch 1
+            
             const b1 = armRadius * 0.55;
             const b1Len = armRadius * 0.35;
             offCtx.beginPath();
@@ -67,7 +60,7 @@
             offCtx.lineTo(b1Len * 0.7, b1 + b1Len * 0.6);
             offCtx.stroke();
 
-            // Branch 2
+            
             const b2 = armRadius * 0.82;
             const b2Len = armRadius * 0.22;
             offCtx.beginPath();
@@ -80,7 +73,7 @@
             offCtx.rotate((Math.PI * 2) / arms);
         }
 
-        // Center dot
+        
         offCtx.beginPath();
         offCtx.arc(0, 0, 2, 0, Math.PI * 2);
         offCtx.fill();
@@ -88,7 +81,13 @@
         spriteCanvases.push(offCanvas);
     });
 
+    function isMobileOrTouch() {
+        return window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
+    }
+
     function updateWidgetDisplay() {
+        if (isMobileOrTouch()) return;
+
         const targetNumberEl = document.getElementById('particle-caught-count');
         const targetWidgetEl = document.getElementById('particle-counter-widget');
         if (targetNumberEl && caughtCount > 0) {
@@ -107,6 +106,7 @@
     setTimeout(updateWidgetDisplay, 50);
 
     function triggerPusheenRiceCursor() {
+        if (isMobileOrTouch()) return;
         document.body.classList.add('cursor-eating-rice');
         if (cursorTimer) clearTimeout(cursorTimer);
         cursorTimer = setTimeout(() => {
@@ -116,11 +116,13 @@
     }
 
     function incrementCounter() {
+        if (isMobileOrTouch()) return;
+
         caughtCount++;
         try {
             localStorage.setItem(STORAGE_KEY, caughtCount.toString());
         } catch (e) {
-            // LocalStorage fallback
+            
         }
 
         const targetNumberEl = document.getElementById('particle-caught-count');
@@ -133,7 +135,7 @@
                 targetWidgetEl.classList.add('visible');
             }
             targetWidgetEl.classList.remove('pop-effect');
-            void targetWidgetEl.offsetWidth; // force reflow
+            void targetWidgetEl.offsetWidth; 
             targetWidgetEl.classList.add('pop-effect');
         }
     }
@@ -143,8 +145,10 @@
         height = canvas.height = window.innerHeight;
     });
 
-    // Snowflake click detection
+    
     window.addEventListener('click', (e) => {
+        if (isMobileOrTouch()) return;
+
         const clickX = e.clientX;
         const clickY = e.clientY;
         let hit = false;
@@ -155,7 +159,7 @@
             const dy = flake.y - clickY;
             const dist = Math.sqrt(dx * dx + dy * dy);
 
-            // Generous clickable radius (35px)
+            
             const hitRadius = Math.max(flake.scale * 20, 32);
             if (dist < hitRadius && !flake.popping) {
                 flake.burst();
@@ -177,7 +181,7 @@
         reset(initial = false) {
             this.x = Math.random() * width;
             this.y = initial ? Math.random() * height : -30;
-            this.scale = Math.random() * 0.45 + 0.65; // scale between 0.65 and 1.1
+            this.scale = Math.random() * 0.45 + 0.65; 
             this.speedY = Math.random() * 0.45 + 0.25;
             this.speedX = (Math.random() - 0.5) * 0.2;
             this.rotation = Math.random() * Math.PI * 2;

@@ -1,135 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheIceDragonz | Official Hub</title>
+    <title>TheIceDragonz | Home</title>
+
     
-    <!-- SEO & Metadata -->
-    <meta name="description" content="Official website of TheIceDragonz - VRChat 3D avatars, Discord community and digital assets.">
-    <meta name="keywords" content="TheIceDragonz, VRChat Avatars, 3D Assets, Gumroad, Payhip, Discord Community">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="description"
+        content="Official website of TheIceDragonz - VRChat 3D avatars, Discord community and digital assets.">
+    <meta name="keywords" content="TheIceDragonz, Home, VRChat Avatars, 3D Assets, Gumroad, Payhip, Discord Community">
     <meta name="author" content="TheIceDragonz">
     <meta name="theme-color" content="#06080e">
-    <link rel="icon" type="image/png" href="Ice.png">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
 
-    <!-- Open Graph / Social Cards -->
+    
     <meta property="og:type" content="website">
-    <meta property="og:title" content="TheIceDragonz">
-    <meta property="og:description" content="Explore official VRChat 3D avatars, store links, ToS, and Discord community.">
+    <meta property="og:title" content="TheIceDragonz | Home">
+    <meta property="og:description"
+        content="Explore official VRChat 3D avatars, store links, ToS, and Discord community.">
     <meta property="og:image" content="Ice.png">
     <meta property="og:url" content="https://theicedragonz.github.io/">
 
-    <!-- Google Fonts -->
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     
-    <!-- Custom Style System -->
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
     <div class="wrapper">
+
         
-        <!-- Brand Profile & Hero Header -->
         <header class="brand-header">
             <div class="logo-container">
-                <a href="./">
-                    <img src="Ice.png" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/TheIceDragonz/theicedragonz.github.io/main/Ice.png'" alt="TheIceDragonz Logo" class="brand-logo">
+                <a href="./" aria-label="TheIceDragonz Home">
+                    <img src="Ice.png"
+                        onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/TheIceDragonz/theicedragonz.github.io/main/Ice.png'"
+                        alt="TheIceDragonz Logo" class="brand-logo">
                 </a>
             </div>
-            
-            <h1 class="brand-title">TheIceDragonz</h1>
         </header>
 
-        <!-- Multi-page Navigation Bar -->
+        
         <nav class="nav-tabs-container" aria-label="Main Navigation">
             <div class="nav-tabs">
-                <a href="./" class="nav-tab-btn active" style="text-decoration: none;">
-                    <i class="fa-solid fa-house"></i> Home
+                <a href="./" class="nav-tab-btn active">
+                    <i class="fa-solid fa-house"></i> <span>Home</span>
                 </a>
-                <a href="boosters/" class="nav-tab-btn" style="text-decoration: none;">
-                    <i class="fa-solid fa-gem"></i> Nitro Boosters
+                <a href="avatars/" class="nav-tab-btn">
+                    <i class="fa-solid fa-person"></i> <span>Avatars</span>
                 </a>
-                <a href="tos/" class="nav-tab-btn" style="text-decoration: none;">
-                    <i class="fa-solid fa-scale-balanced"></i> Terms of Service
+                <a href="boosters/" class="nav-tab-btn">
+                    <i class="fa-solid fa-gem"></i> <span class="nav-label-long">Nitro Boosters</span><span
+                        class="nav-label-short">Boosters</span>
+                </a>
+                <a href="tos/" class="nav-tab-btn">
+                    <i class="fa-solid fa-scale-balanced"></i> <span class="nav-label-long">Terms of Service</span><span
+                        class="nav-label-short">ToS</span>
                 </a>
             </div>
         </nav>
 
-        <!-- ================================================================
-             HOME PERSONAL PAGE (Link e Hub)
-             ================================================================ -->
+        
         <main class="content-section active">
-            <div class="glass-card" style="text-align: center; padding: 40px 24px;">
-                
-                <!-- Official Stores & Community Links Grid -->
-                <div style="display: flex; flex-direction: column; gap: 14px; max-width: 480px; margin: 0 auto 28px auto;">
-                    <a href="https://theicedragonz.gumroad.com/" class="btn-main btn-gumroad" target="_blank" rel="noopener noreferrer" style="justify-content: center; padding: 15px 24px; font-size: 1rem; border-radius: var(--radius-md);">
-                        <i class="fa-solid fa-bag-shopping" style="font-size: 1.15rem;"></i> Gumroad Store
-                    </a>
-                    
-                    <a href="https://payhip.com/TheIceDragonz" class="btn-main btn-payhip" target="_blank" rel="noopener noreferrer" style="justify-content: center; padding: 15px 24px; font-size: 1rem; border-radius: var(--radius-md);">
-                        <i class="fa-solid fa-cart-shopping" style="font-size: 1.15rem;"></i> Payhip Store
-                    </a>
-                    
-                    <a href="https://discord.com/invite/yf8vG5Ddcb" class="btn-main btn-discord" target="_blank" rel="noopener noreferrer" style="justify-content: center; padding: 15px 24px; font-size: 1rem; border-radius: var(--radius-md);">
-                        <i class="fa-brands fa-discord" style="font-size: 1.15rem;"></i> Discord Community
-                    </a>
-                </div>
+            <div class="glass-card home-card">
 
-                <!-- Fast Nav Hub Cards -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; max-width: 600px; margin: 0 auto; text-align: left;">
-                    
-                    <a href="boosters/" style="text-decoration: none; color: inherit; display: block;">
-                        <div class="tos-clause" style="margin-bottom: 0; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between;">
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <div class="clause-icon" style="background: rgba(244, 63, 94, 0.15); color: #f472b6; border: 1px solid rgba(244, 63, 94, 0.3); width: 36px; height: 36px; font-size: 0.95rem;">
-                                    <i class="fa-solid fa-gem"></i>
-                                </div>
-                                <div>
-                                    <h4 style="font-size: 0.98rem; font-weight: 700; color: #fff;">Nitro Boosters</h4>
-                                    <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Community VIP Wall</p>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-chevron-right" style="color: var(--text-dim); font-size: 0.85rem;"></i>
-                        </div>
-                    </a>
+                <div class="home-sections-wrap">
 
-                    <a href="tos/" style="text-decoration: none; color: inherit; display: block;">
-                        <div class="tos-clause" style="margin-bottom: 0; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between;">
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <div class="clause-icon blue" style="width: 36px; height: 36px; font-size: 0.95rem;">
-                                    <i class="fa-solid fa-scale-balanced"></i>
-                                </div>
-                                <div>
-                                    <h4 style="font-size: 0.98rem; font-weight: 700; color: #fff;">Terms of Service</h4>
-                                    <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Rules &amp; License</p>
-                                </div>
-                            </div>
-                            <i class="fa-solid fa-chevron-right" style="color: var(--text-dim); font-size: 0.85rem;"></i>
+                    
+                    <div class="home-section-block">
+                        <div class="home-category-title">
+                            <i class="fa-solid fa-bag-shopping"></i> Official Stores
                         </div>
-                    </a>
+
+                        <div class="home-links-grid stores-grid">
+                            <a href="https://theicedragonz.gumroad.com/" class="link-card gumroad" target="_blank"
+                                rel="noopener noreferrer">
+                                <div class="link-card-left">
+                                    <div class="link-card-icon gumroad">
+                                        <img src="icons/gumroad.svg" alt="Gumroad" class="link-icon-img"
+                                            onload="this.nextElementSibling.style.display='none';"
+                                            onerror="this.remove();" loading="lazy">
+                                        <i class="fa-solid fa-bag-shopping"></i>
+                                    </div>
+                                    <div class="link-card-text">
+                                        <div class="link-card-title">
+                                            Gumroad Store
+                                        </div>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-chevron-right link-card-arrow"></i>
+                            </a>
+
+                            <a href="https://payhip.com/TheIceDragonz" class="link-card payhip" target="_blank"
+                                rel="noopener noreferrer">
+                                <div class="link-card-left">
+                                    <div class="link-card-icon payhip">
+                                        <img src="icons/payhip.svg" alt="Payhip" class="link-icon-img"
+                                            onload="this.nextElementSibling.style.display='none';"
+                                            onerror="this.remove();" loading="lazy">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                    </div>
+                                    <div class="link-card-text">
+                                        <div class="link-card-title">
+                                            Payhip Store
+                                        </div>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-chevron-right link-card-arrow"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    
+                    <div class="home-section-block">
+                        <div class="home-category-title">
+                            <i class="fa-solid fa-camera-retro"></i> Socials &amp; Media
+                        </div>
+
+                        <div class="home-links-grid stores-grid">
+                            <a href="https://www.instagram.com/theicedragonz.vrc" class="link-card instagram"
+                                target="_blank" rel="noopener noreferrer">
+                                <div class="link-card-left">
+                                    <div class="link-card-icon instagram">
+                                        <img src="icons/instagram.svg" alt="Instagram" class="link-icon-img"
+                                            onload="this.nextElementSibling.style.display='none';"
+                                            onerror="this.remove();" loading="lazy">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </div>
+                                    <div class="link-card-text">
+                                        <div class="link-card-title">
+                                            Instagram
+                                        </div>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-chevron-right link-card-arrow"></i>
+                            </a>
+
+                            <a href="https://www.tiktok.com/@theicedragonz" class="link-card tiktok"
+                                target="_blank" rel="noopener noreferrer">
+                                <div class="link-card-left">
+                                    <div class="link-card-icon tiktok">
+                                        <img src="icons/tiktok.svg" alt="TikTok" class="link-icon-img"
+                                            onerror="this.remove();" loading="lazy">
+                                    </div>
+                                    <div class="link-card-text">
+                                        <div class="link-card-title">
+                                            TikTok
+                                        </div>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-chevron-right link-card-arrow"></i>
+                            </a>
+                        </div>
+                    </div>
 
                 </div>
 
             </div>
+
+            
+            <section class="glass-card group-profile-card vrchat-group" style="margin-top: 28px;" aria-label="Official VRChat Group">
+                <span class="card-platform-pill vrchat">
+                    <img src="icons/vrchat.svg" alt="VRChat"> VRChat In-Game Group
+                </span>
+
+                
+                <div class="group-banner-wrap">
+                    <img src="https://api.vrchat.cloud/api/1/file/file_48d55a8b-069d-4117-87bd-04b06545f0ae/1/file"
+                        alt="Ice's Avatars Banner" class="group-banner-img" width="1920" height="640" loading="lazy">
+                </div>
+
+                
+                <div class="group-profile-body">
+
+                    
+                    <div class="group-profile-header">
+                        <div class="group-avatar-wrap">
+                            <img src="https://api.vrchat.cloud/api/1/file/file_5d976ef9-8fd1-48cc-8edf-6e6f6705b7e5/1/file"
+                                alt="Ice's Avatars Icon" class="group-avatar-img" width="120" height="120"
+                                loading="lazy" onerror="this.onerror=null; this.src='Ice.png'">
+                        </div>
+
+                        <div class="group-identity">
+                            <div class="group-title-row">
+                                <h2 class="group-name">Ice's Avatars</h2>
+                                <div class="group-meta-badges">
+                                    <span class="group-tag-badge"><i class="fa-solid fa-hashtag"></i> ICEAVI.1811</span>
+                                    <span class="group-open-badge"><i class="fa-solid fa-door-open"></i> Open
+                                        Group</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <p class="group-desc-text">
+                        Keep updated on the new avatars I will make :3 Join our official in-game VRChat community group
+                        for avatar releases and announcements.
+                    </p>
+
+                    
+                    <div class="world-stats-grid">
+                        <div class="world-stat-item">
+                            <div class="world-stat-icon cyan">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="world-stat-info">
+                                <span class="world-stat-val">4.5K+</span>
+                                <span class="world-stat-lbl">Members</span>
+                            </div>
+                        </div>
+
+                        <div class="world-stat-item">
+                            <div class="world-stat-icon green">
+                                <i class="fa-solid fa-circle-dot"></i>
+                            </div>
+                            <div class="world-stat-info">
+                                <span class="world-stat-val">80+ Online</span>
+                                <span class="world-stat-lbl">Active in VRChat</span>
+                            </div>
+                        </div>
+
+                        <div class="world-stat-item">
+                            <div class="world-stat-icon purple">
+                                <i class="fa-solid fa-globe"></i>
+                            </div>
+                            <div class="world-stat-info">
+                                <span class="world-stat-val">ITA &bull; ENG</span>
+                                <span class="world-stat-lbl">Languages</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <a href="https://vrchat.com/home/group/grp_8789e93f-4b2a-44a9-816b-c8686d45df6a"
+                        class="btn-world-launch" target="_blank" rel="noopener noreferrer">
+                        <img src="icons/vrchat.svg" alt="VRChat" class="btn-svg-icon" onerror="this.remove();">
+                        <i class="fa-solid fa-user-plus"></i> Join Group in VRChat
+                    </a>
+
+                </div>
+            </section>
+
+            
+            <section class="glass-card group-profile-card discord-server" style="margin-top: 28px;" aria-label="Official Discord Community">
+                <span class="card-platform-pill discord">
+                    <img src="icons/discord.svg" alt="Discord"> Discord Server
+                </span>
+
+                
+                <div class="group-banner-wrap">
+                    <img src="https://cdn.discordapp.com/banners/1105892392378302464/360ac451aa3b8e131c50b011dc44bde3.png?size=1024"
+                        alt="Ice's Avatars Discord Banner" class="group-banner-img" width="1024" height="576"
+                        loading="lazy"
+                        onerror="this.onerror=null; this.src='https://cdn.discordapp.com/splashes/1105892392378302464/92d0ed65797688280ffe524695d8e6b5.png?size=1024'">
+                </div>
+
+                
+                <div class="group-profile-body">
+
+                    
+                    <div class="group-profile-header">
+                        <div class="group-avatar-wrap">
+                            <img src="https://cdn.discordapp.com/icons/1105892392378302464/63c30c48667949e0363bb4da2dd42a87.png?size=256"
+                                alt="Ice's Avatars Discord Icon" class="group-avatar-img" width="120" height="120"
+                                loading="lazy" onerror="this.onerror=null; this.src='Ice.png'">
+                        </div>
+
+                        <div class="group-identity">
+                            <div class="group-title-row">
+                                <h2 class="group-name">Ice's Avatars</h2>
+                                <div class="group-meta-badges">
+                                    <span class="group-tag-badge discord"><i class="fa-brands fa-discord"></i>
+                                        Discord</span>
+                                    <span class="group-boost-badge"><i class="fa-solid fa-gem"></i> Level 2
+                                        Boosted</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <p class="group-desc-text">
+                        Join over 2,200+ creators, avatar enthusiasts and friends in our official Discord community!
+                    </p>
+
+                    
+                    <div class="world-stats-grid">
+                        <div class="world-stat-item">
+                            <div class="world-stat-icon purple">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="world-stat-info">
+                                <span class="world-stat-val">2.2K+</span>
+                                <span class="world-stat-lbl">Members</span>
+                            </div>
+                        </div>
+
+                        <div class="world-stat-item">
+                            <div class="world-stat-icon green">
+                                <i class="fa-solid fa-circle-dot"></i>
+                            </div>
+                            <div class="world-stat-info">
+                                <span class="world-stat-val">340+ Online</span>
+                                <span class="world-stat-lbl">Active in Discord</span>
+                            </div>
+                        </div>
+
+                        <div class="world-stat-item">
+                            <div class="world-stat-icon pink">
+                                <i class="fa-solid fa-gem"></i>
+                            </div>
+                            <div class="world-stat-info">
+                                <span class="world-stat-val">Level 2</span>
+                                <span class="world-stat-lbl">Server Boost</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <a href="https://discord.com/invite/yf8vG5Ddcb" class="btn-world-launch btn-discord-launch"
+                        target="_blank" rel="noopener noreferrer">
+                        <img src="icons/discord.svg" alt="Discord" class="btn-svg-icon" onerror="this.remove();">
+                        <i class="fa-brands fa-discord"></i> Join Discord Server
+                    </a>
+
+                </div>
+            </section>
         </main>
 
-        <!-- Footer -->
-        <footer>
-            <p>&copy; 2026 TheIceDragonz. All rights reserved.</p>
+        
+        <footer class="site-footer-fixed">
+            <div class="footer-content-wrap">
+                <div class="footer-social-icons">
+                    <a href="https://theicedragonz.gumroad.com/" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-btn gumroad" title="Gumroad Store" aria-label="Gumroad Store">
+                        <img src="icons/gumroad.svg" alt="Gumroad" class="footer-svg-icon" onerror="this.remove();">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </a>
+                    <a href="https://payhip.com/TheIceDragonz" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-btn payhip" title="Payhip Store" aria-label="Payhip Store">
+                        <img src="icons/payhip.svg" alt="Payhip" class="footer-svg-icon" onerror="this.remove();">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </a>
+                    <a href="https://discord.com/invite/yf8vG5Ddcb" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-btn discord" title="Discord Server" aria-label="Discord Server">
+                        <img src="icons/discord.svg" alt="Discord" class="footer-svg-icon" onerror="this.remove();">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+                    <a href="https://vrchat.com/home/group/grp_8789e93f-4b2a-44a9-816b-c8686d45df6a" target="_blank"
+                        rel="noopener noreferrer" class="footer-social-btn vrchat" title="VRChat Group"
+                        aria-label="VRChat Group">
+                        <img src="icons/vrchat.svg" alt="VRChat" class="footer-svg-icon" onerror="this.remove();">
+                        <i class="fa-solid fa-vr-cardboard"></i>
+                    </a>
+                    <a href="https://www.instagram.com/theicedragonz.vrc" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-btn instagram" title="Instagram" aria-label="Instagram">
+                        <img src="icons/instagram.svg" alt="Instagram" class="footer-svg-icon" onerror="this.remove();">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
+                <p class="footer-copyright">&copy; 2026 TheIceDragonz. All rights reserved.</p>
+            </div>
         </footer>
 
     </div>
 
-    <!-- Floating Particle Catch Counter (Bottom Right) -->
+    
     <div id="particle-counter-widget" class="particle-counter-widget" title="Particles caught!">
         <div class="counter-icon-wrap">
-            <img src="CustomCursor/pusheen-the-cat-eating-rice-animated-pointer-32x32.png" alt="Pusheen" class="counter-cat-icon">
+            <img src="CustomCursor/pusheen-the-cat-eating-rice-animated-pointer-32x32.png" alt="Pusheen"
+                class="counter-cat-icon">
         </div>
         <div class="counter-data">
             <span class="counter-number" id="particle-caught-count">0</span>
@@ -137,16 +391,17 @@
         </div>
     </div>
 
-    <!-- Floating Back to Top Button -->
+    
     <button id="back-to-top" class="back-to-top-btn" title="Back to Top" aria-label="Back to Top">
         <i class="fa-solid fa-chevron-up"></i>
     </button>
 
-    <!-- Toast Notification Container -->
+    
     <div id="toast-container"></div>
 
-    <!-- Application Scripts -->
+    
     <script src="js/particles.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>
