@@ -119,10 +119,76 @@
         });
     }
 
+    async function fetchDiscordLiveStats() {
+        const memberElem = document.getElementById('discord-member-count');
+        const onlineElem = document.getElementById('discord-online-count');
+        const boostElem = document.getElementById('discord-boost-tier');
+        const badgeElem = document.getElementById('discord-boost-badge');
+        const descElem = document.getElementById('discord-desc-count');
+
+        if (!memberElem && !onlineElem && !boostElem) return;
+
+        try {
+            const response = await fetch('https://discord.com/api/v9/invites/yf8vG5Ddcb?with_counts=true');
+            if (!response.ok) return;
+
+            const data = await response.json();
+
+            // Total members
+            const members = data.approximate_member_count || (data.profile && data.profile.member_count);
+            if (members) {
+                if (memberElem) {
+                    const formatted = members >= 1000 
+                        ? `${(members / 1000).toFixed(1)}K+` 
+                        : members.toString();
+                    memberElem.textContent = formatted;
+                    memberElem.title = `${members.toLocaleString()} Total Members`;
+                }
+                if (descElem) {
+                    descElem.textContent = `${members.toLocaleString()}+`;
+                }
+            }
+
+            // Online members
+            const online = data.approximate_presence_count || (data.profile && data.profile.online_count);
+            if (online && onlineElem) {
+                onlineElem.textContent = `${online} Online`;
+                onlineElem.title = `${online.toLocaleString()} Active in Discord`;
+            }
+
+            // Server Boost status
+            const guild = data.guild || data.profile;
+            if (guild) {
+                const tier = guild.premium_tier || 0;
+                const boosts = guild.premium_subscription_count || 0;
+
+                if (boostElem && tier > 0) {
+                    boostElem.textContent = `Level ${tier}`;
+                    if (boosts > 0) {
+                        boostElem.title = `${boosts} Server Boosts`;
+                    }
+                }
+
+                if (badgeElem && tier > 0) {
+                    badgeElem.innerHTML = `<i class="fa-solid fa-gem"></i> Level ${tier} Boosted`;
+                }
+            }
+
+            console.log('%c[Discord Live Stats]%c Dati caricati con successo:', 'color: #5865F2; font-weight: bold;', 'color: inherit;', {
+                members,
+                online,
+                guild: data.guild?.name
+            });
+        } catch (err) {
+            console.warn('[Discord Live Stats] Errore chiamata API:', err);
+        }
+    }
+
     
     document.addEventListener('DOMContentLoaded', () => {
         initTabs();
         initTosSearch();
         initBackToTop();
+        fetchDiscordLiveStats();
     });
 })();

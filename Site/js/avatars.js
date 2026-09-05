@@ -3,7 +3,81 @@
 document.addEventListener('DOMContentLoaded', () => {
     initAvatarModals();
     initAvatarSliders();
+    fetchVRChatWorldStats();
 });
+
+async function fetchVRChatWorldStats() {
+    const favElem = document.getElementById('vrchat-world-favorites');
+    const visitsElem = document.getElementById('vrchat-world-visits');
+    const capElem = document.getElementById('vrchat-world-capacity');
+    const imgElem = document.getElementById('vrchat-world-img');
+
+    if (!favElem && !visitsElem && !capElem) return;
+
+    let data = null;
+
+    // 1. Prova a caricare il file JSON locale generato/aggiornato dalla GitHub Action
+    const pathsToTry = [
+        '/VRChat/World.json',
+        '../VRChat/World.json',
+        'VRChat/World.json',
+        '/vrchat-world.json'
+    ];
+    for (let path of pathsToTry) {
+        try {
+            const response = await fetch(path, { cache: 'no-cache' });
+            if (response.ok) {
+                const json = await response.json();
+                if (json && json.favorites !== undefined) {
+                    data = json;
+                    break;
+                }
+            }
+        } catch (e) {}
+    }
+
+    // 2. Fallback: chiamata API diretta
+    if (!data) {
+        try {
+            const response = await fetch('https://api.vrchat.cloud/api/1/worlds/wrld_3c78d22f-e1d7-471c-a2b4-de208249f473');
+            if (response.ok) {
+                data = await response.json();
+            }
+        } catch (e) {}
+    }
+
+    if (!data) return;
+
+    // Favorites
+    if (data.favorites !== undefined && favElem) {
+        const fav = data.favorites;
+        favElem.textContent = fav >= 1000 ? `${(fav / 1000).toFixed(1)}K+` : fav.toString();
+        favElem.title = `${fav.toLocaleString()} Favorites`;
+    }
+
+    // Visits
+    if (data.visits !== undefined && visitsElem) {
+        const visits = data.visits;
+        visitsElem.textContent = visits >= 1000 ? `${(visits / 1000).toFixed(1)}K+` : visits.toString();
+        visitsElem.title = `${visits.toLocaleString()} Total Visits`;
+    }
+
+    // Capacity
+    if (data.capacity !== undefined && capElem) {
+        capElem.textContent = `${data.capacity} Slots`;
+    }
+
+    // Image
+    if (data.imageUrl && imgElem) {
+        imgElem.src = data.imageUrl;
+    }
+
+    console.log('%c[VRChat World Stats]%c Dati caricati con successo:', 'color: #06b6d4; font-weight: bold;', 'color: inherit;', {
+        favorites: data.favorites,
+        visits: data.visits,
+        capacity: data.capacity
+    });
+}
 
 function initAvatarModals() {
     const triggers = document.querySelectorAll('[data-avatar-modal]');

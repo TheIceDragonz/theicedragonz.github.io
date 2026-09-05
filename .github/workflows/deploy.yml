@@ -3,7 +3,8 @@ name: Deploy Site directory to GitHub Pages
 on:
   push:
     branches: ["main"]
-
+  schedule:
+    - cron: '0 */6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -32,6 +33,13 @@ jobs:
         run: |
           cp -r ./DiscordNitro ./Site/DiscordNitro
           cp -r ./CustomCursor ./Site/CustomCursor
+          cp -r ./VRChat ./Site/VRChat
+
+      - name: Fetch latest VRChat World stats
+        run: |
+          curl -s -H "User-Agent: TheIceDragonzWebsite/1.0 (contact: github.com/TheIceDragonz)" \
+            "https://api.vrchat.cloud/api/1/worlds/wrld_3c78d22f-e1d7-471c-a2b4-de208249f473" \
+            -o ./Site/VRChat/World.json || echo "Could not fetch VRChat stats, keeping fallback"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
