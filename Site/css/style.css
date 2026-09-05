@@ -802,6 +802,7 @@ body {
     display: flex;
     flex-direction: column;
     min-width: 0;
+    gap: 2px;
 }
 
 .world-stat-val {
@@ -809,7 +810,7 @@ body {
     font-size: clamp(0.92rem, 2.2vw, 1.05rem);
     font-weight: 800;
     color: #ffffff;
-    line-height: 1.1;
+    line-height: 1.2;
     white-space: nowrap;
 }
 
@@ -818,7 +819,7 @@ body {
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.03em;
-    white-space: nowrap;
+    line-height: 1.25;
 }
 
 .btn-world-launch {
@@ -2901,6 +2902,10 @@ footer,
         display: none !important;
     }
 
+    .link-card-title {
+        font-size: clamp(0.85rem, 2vw, 0.96rem);
+    }
+
     .back-to-top-btn {
         bottom: 20px;
         right: 18px;
@@ -3024,6 +3029,36 @@ footer,
 
     .home-hub-grid {
         grid-template-columns: 1fr;
+    }
+
+    .link-card {
+        padding: 10px 12px;
+        gap: 8px;
+    }
+
+    .link-card-left {
+        gap: 10px;
+    }
+
+    .link-card-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
+    }
+
+    .link-card-title {
+        font-size: clamp(0.78rem, 2.4vw, 0.84rem);
+        line-height: 1.25;
+        gap: 6px;
+    }
+
+    .link-card-badge {
+        font-size: 0.62rem;
+        padding: 1px 6px;
+    }
+
+    .link-card-desc {
+        font-size: 0.74rem;
     }
 
     .tos-summary-matrix {
@@ -3162,26 +3197,57 @@ footer,
     }
 
     .world-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         gap: 6px;
-        padding: 8px 10px;
+        padding: 10px 6px;
     }
 
     .world-stat-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
         gap: 6px;
+        min-width: 0;
+        padding: 2px;
     }
 
     .world-stat-icon {
-        width: 28px;
-        height: 28px;
-        font-size: 0.78rem;
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+        margin: 0 auto;
+    }
+
+    .world-stat-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 3px;
+        width: 100%;
+        min-width: 0;
     }
 
     .world-stat-val {
-        font-size: 0.82rem;
+        font-size: clamp(0.76rem, 2.3vw, 0.84rem);
+        line-height: 1.2;
+        white-space: nowrap;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
     }
 
     .world-stat-lbl {
-        font-size: 0.62rem;
+        font-size: clamp(0.56rem, 1.8vw, 0.64rem);
+        line-height: 1.25;
+        white-space: normal;
+        text-align: center;
+        word-break: break-word;
+        letter-spacing: 0.02em;
+        max-width: 100%;
     }
 }
 
@@ -3198,5 +3264,17 @@ footer,
 
     .brand-title {
         font-size: 1.55rem;
+    }
+
+    .link-card-title {
+        font-size: 0.74rem;
+    }
+
+    .world-stat-val {
+        font-size: 0.72rem;
+    }
+
+    .world-stat-lbl {
+        font-size: 0.54rem;
     }
 }
