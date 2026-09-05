@@ -20,8 +20,9 @@ async function fetchVRChatWorldStats() {
     const pathsToTry = [
         '/VRChat/World.json',
         '../VRChat/World.json',
-        'VRChat/World.json',
-        '/vrchat-world.json'
+        '/vrchat-world.json',
+        '../vrchat-world.json',
+        'vrchat-world.json'
     ];
     for (let path of pathsToTry) {
         try {

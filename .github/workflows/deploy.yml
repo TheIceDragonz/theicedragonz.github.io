@@ -37,6 +37,7 @@ jobs:
 
       - name: Fetch latest VRChat World stats
         run: |
+          mkdir -p ./Site/VRChat
           curl -s -H "User-Agent: TheIceDragonzWebsite/1.0 (contact: github.com/TheIceDragonz)" \
             "https://api.vrchat.cloud/api/1/worlds/wrld_3c78d22f-e1d7-471c-a2b4-de208249f473" \
             -o ./Site/VRChat/World.json || echo "Could not fetch VRChat stats, keeping fallback"
