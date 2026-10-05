@@ -138,9 +138,11 @@
             const members = data.approximate_member_count || (data.profile && data.profile.member_count);
             if (members) {
                 if (memberElem) {
-                    const formatted = members >= 1000 
-                        ? `${(members / 1000).toFixed(1)}K+` 
-                        : members.toString();
+                    const formatted = members >= 1000000
+                        ? `${(members / 1000000).toFixed(2)}M+`
+                        : members >= 1000 
+                            ? `${(members / 1000).toFixed(1)}K+` 
+                            : members.toString();
                     memberElem.textContent = formatted;
                     memberElem.title = `${members.toLocaleString()} Total Members`;
                 }

@@ -49,17 +49,27 @@ async function fetchVRChatWorldStats() {
 
     if (!data) return;
 
+    function formatStatNumber(num) {
+        if (num >= 1000000) {
+            return `${(num / 1000000).toFixed(2)}M+`;
+        }
+        if (num >= 1000) {
+            return `${(num / 1000).toFixed(1)}K+`;
+        }
+        return num.toString();
+    }
+
     // Favorites
     if (data.favorites !== undefined && favElem) {
         const fav = data.favorites;
-        favElem.textContent = fav >= 1000 ? `${(fav / 1000).toFixed(1)}K+` : fav.toString();
+        favElem.textContent = formatStatNumber(fav);
         favElem.title = `${fav.toLocaleString()} Favorites`;
     }
 
     // Visits
     if (data.visits !== undefined && visitsElem) {
         const visits = data.visits;
-        visitsElem.textContent = visits >= 1000 ? `${(visits / 1000).toFixed(1)}K+` : visits.toString();
+        visitsElem.textContent = formatStatNumber(visits);
         visitsElem.title = `${visits.toLocaleString()} Total Visits`;
     }
 
