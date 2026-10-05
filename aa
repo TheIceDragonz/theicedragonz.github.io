@@ -1,0 +1,495 @@
+/**
+ * Cloudflare Worker - Ice License Manager Server
+ * Provides secure verification for Payhip, Gumroad, and Jinxxy with cryptographic RSA signatures,
+ * Jinxxy activation recording with custom descriptions, and Discord Webhook notifications.
+ */
+
+// =========================================================================
+// DISCORD WEBHOOKS
+// =========================================================================
+const DISCORD_ACTIVATION_WEBHOOK_URL = "https://discord.com/api/webhooks/1556719260842205194/wM2VTaj_2qiMCjJKx6dXRms_bbn2XttSkBq0ytJAtIc0OXecOhZklL-YAYXFT3ISm1l6";
+
+const DISCORD_UPLOAD_WEBHOOK_URL = "https://discord.com/api/webhooks/1556721257385299978/PC4HkxRufiZFBxYnmTogYdX5nLQR4qW67XjuMRnx-TZwfFnGBOIqYMNldf_IGSchbTtm";
+
+// =========================================================================
+// AVATARS CONFIGURATION
+// =========================================================================
+const KATE_AND_NATE = {
+    payhipSecret: "",
+    gumroadProductId: "",
+    jinxxyApiKey: "",
+    jinxxyProductId: ""
+};
+
+const MAVE_AND_DAVE = {
+    payhipSecret: "",
+    gumroadProductId: "",
+    jinxxyApiKey: "",
+    jinxxyProductId: ""
+};
+
+const LILA_AND_LEVI = {
+    payhipSecret: "",
+    gumroadProductId: "",
+    jinxxyApiKey: "",
+    jinxxyProductId: ""
+};
+
+const KAYA_AND_KADE = {
+    payhipSecret: "",
+    gumroadProductId: "",
+    jinxxyApiKey: "",
+    jinxxyProductId: ""
+};
+
+const AVATARS_CONFIG = {
+    "KateAndNate": KATE_AND_NATE,
+    "MaveAndDave": MAVE_AND_DAVE,
+    "LilaAndLevi": LILA_AND_LEVI,
+    "KayaAndKade": KAYA_AND_KADE,
+};
+
+// =========================================================================
+// RSA PRIVATE KEY (RSASSA-PKCS1-v1_5 SHA-256)
+// =========================================================================
+const RSA_PRIVATE_KEY_JWK = {
+    kty: "RSA",
+    alg: "RS256",
+    ext: true,
+    key_ops: ["sign"],
+    n: "vvBAMITJrbBnpuDPFNOoZfgzFHBOdwGXsKXcAAzydNO-Jq-lefKuilSv4XxcvsTvIPzglweb0etHDgvsxMCxKZhpWodh54ZEeVjWHIcNmRR6sT43cMosfRvEZKidDQbkGp5B-isKCMwg7MM40rzVq2dK4Y2QUjz5MhkX86VFmE39bML-VRtNYCP3-mqtvjvIX87Qy9J9v05atUGAFpHXdqINLv0dk8pPJcD1Eot4WrMZ6Zyy5PHxYJIBTDXIRrXLcnHFHIhdygA7NkjiC0O_EgTfMr8o7323C0mguUD-WystMyx4PJ99bQwcX6kigamElT8Fsm4PBDeysDCEIAK25Q",
+    e: "AQAB",
+    d: "K_SE4mZ_QyPcCLeyFFpRZwAHSko8Vfsg34KfLcfNPQXNvXwr_PHYKnIqdx84_pW5cv-j-EDBJ0cheWNXY0f0wN2cS0HlUPZA5yqDR9fzUm07fXgULTvtl_N_d6i1Vt1iP5p1F9E2oyXS4o5ik2jzS10hCOGc-sGcoGLUd7txVQkhXAdSmrR-7MHsbdysHNBtOk3zeoX2hG-qpxJ3CIiB7yRsMNwsnzjyXvPZ8J0-rQuQDTNW3vFxmgDYQQwc683r6LftobheZehNTRxRADZrO3Mn2dVPaXV3m50Z6iZeVRzoHNBKgHaBBVxlM0cBhIYwCIzu6RJ3sasqJgc0WBUPlQ",
+    p: "1w77m6rnRIeJ0Mm72glLaSFevkRlkv2nyISqVcy9DzrFZ8yrQHZoZDYh07CFwKse9F9jGqtT2hemclvh9Bqm7WusHq-kEBTRa8DNLBzEgV3p3H6O4JUEFyj4r8_F_YJ-e6tHJ3kj4yDkMRKDD2jPwiFE9_Na5mOUdJ5zL7xvxlM",
+    q: "40nC_zJNzHOpHayzv4pOOQTciYCYwyVRrWlL4BG971oCKD0Iyk6mDVlujVgPD-YcULG4blwOyOr58WyhcS5EQRfcotncphuOscZCNBCLkcQ4ARM5nGsFbMHguJcT7hJCwcHaOthE0i0dKzE_2lRLn8HlQoAmcEg38Dc3aO7B9uc",
+    dp: "qHstdPwEKLUCrBaPW7ayZI9nGSqeZPTh0H7Wr1cxuk-xvasjcuIQ0Il0INMHRjUJkCt2ibs1ewPSO39uWn3SzufutS-nGY4lrwQh-PAkprD7eOmRZ7J2vOo1Qg9FrmDgVGSP3wXRrqvi-erl0FmtggnsbVAyo5HaCS7lUL2Q188",
+    dq: "ksM4ZKzIy7ILi5vO3WmjJPJcrXUaLzhTy1PoqKEMMhe-uNjgajHqy0fqON6Zqzx9ICYB31EWQupnxlrMzFaBwD52O7nN3nyA4Y4RhakBVniLaTZOxw_cCuQOBWOYfOvRq2dPURwBJG35HcDJaGNyCZCcRxqUt4AKjtQ4tUsmeBU",
+    qi: "zpvACBIfwABgdN-F5MjkramJB0AIJ7F5b4fvRb7yG8B6aOLxgebDb2ODUGSVk_Hd-SEKQsZ0sAXSM0QelxU_RCswMYu8cv6tt1uW-P1TPqGmd8UudGrZMIFN0QSXnP5DM-78iwFZSu3M8nRYmVZ6WlFrwAaTpJpl-p2zA1k1gFo"
+};
+
+// =========================================================================
+// MAIN HANDLER (ROUTING)
+// =========================================================================
+export default {
+    async fetch(request, env, ctx) {
+        if (request.method === "OPTIONS") {
+            return new Response(null, {
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "POST, OPTIONS",
+                    "Access-Control-Allow-Headers": "Content-Type, User-Agent"
+                }
+            });
+        }
+
+        const url = new URL(request.url);
+
+        // Health check
+        if (url.pathname === "/" || url.pathname === "/health") {
+            return new Response(JSON.stringify({ status: "ok", service: "IceLicenseServer" }), {
+                headers: { "Content-Type": "application/json" }
+            });
+        }
+
+        // Endpoint: VRChat Avatar Upload Notification
+        if (url.pathname === "/notify-upload" && request.method === "POST") {
+            try {
+                const body = await request.json();
+                const targetWebhook = DISCORD_UPLOAD_WEBHOOK_URL || DISCORD_ACTIVATION_WEBHOOK_URL;
+                if (targetWebhook) {
+                    ctx.waitUntil(sendDiscordUploadNotification(body, targetWebhook));
+                }
+                return jsonResponse({ success: true });
+            } catch (err) {
+                return jsonResponse({ success: false, error: err.message }, 500);
+            }
+        }
+
+        // Endpoint: License Verification
+        if (url.pathname === "/verify" && request.method === "POST") {
+            try {
+                const body = await request.json();
+                const avatarName = (body.avatar || "").trim();
+                const licenseKey = (body.licenseKey || "").trim();
+                const isPassive = Boolean(body.isPassive);
+                const description = (body.description || "").trim();
+
+                if (!avatarName || !licenseKey) {
+                    return jsonResponse({ success: false, error: "Missing avatar or licenseKey" }, 400);
+                }
+
+                const config = AVATARS_CONFIG[avatarName];
+                if (!config) {
+                    return jsonResponse({ success: false, error: "Avatar not registered on server" }, 404);
+                }
+
+                let verifyResult = null;
+
+                // 1. Payhip
+                if (config.payhipSecret) {
+                    verifyResult = await verifyPayhip(licenseKey, config.payhipSecret, isPassive);
+                }
+
+                // 2. Gumroad
+                if (!verifyResult && config.gumroadProductId) {
+                    verifyResult = await verifyGumroad(licenseKey, config.gumroadProductId, isPassive);
+                }
+
+                // 3. Jinxxy
+                if (!verifyResult && config.jinxxyApiKey && config.jinxxyProductId) {
+                    verifyResult = await verifyJinxxy(licenseKey, config.jinxxyApiKey, config.jinxxyProductId, isPassive, description, avatarName);
+                }
+
+                if (!verifyResult || !verifyResult.success) {
+                    return jsonResponse({
+                        success: false,
+                        error: verifyResult?.error || "Invalid license key"
+                    });
+                }
+
+                const payloadObj = {
+                    avatar: avatarName,
+                    licenseKey: licenseKey,
+                    email: verifyResult.email || "",
+                    provider: verifyResult.provider,
+                    uses: verifyResult.uses || 1,
+                    date: verifyResult.date || new Date().toISOString(),
+                    productName: verifyResult.productName || avatarName,
+                    timestamp: Math.floor(Date.now() / 1000)
+                };
+
+                const payloadJson = JSON.stringify(payloadObj);
+                const signatureBase64 = await signWithRsa(payloadJson, RSA_PRIVATE_KEY_JWK);
+
+                // Discord notification only on active activation (ACTIVATE button in Unity, not passive)
+                if (!isPassive && DISCORD_ACTIVATION_WEBHOOK_URL) {
+                    ctx.waitUntil(sendDiscordLicenseNotification({
+                        avatar: avatarName,
+                        provider: verifyResult.provider,
+                        email: verifyResult.email,
+                        key: licenseKey,
+                        description: description,
+                        uses: verifyResult.uses || 1
+                    }, DISCORD_ACTIVATION_WEBHOOK_URL));
+                }
+
+                return jsonResponse({
+                    success: true,
+                    payloadJson: payloadJson,
+                    signature: signatureBase64
+                });
+            } catch (err) {
+                return jsonResponse({ success: false, error: "Server error: " + err.message }, 500);
+            }
+        }
+
+        return jsonResponse({ success: false, error: "Not Found" }, 404);
+    }
+};
+
+function jsonResponse(data, status = 200) {
+    return new Response(JSON.stringify(data), {
+        status,
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    });
+}
+
+// =========================================================================
+// RSA CRYPTOGRAPHIC SIGNATURE (RSASSA-PKCS1-v1_5 SHA-256)
+// =========================================================================
+async function signWithRsa(text, jwkKey) {
+    const privateKey = await crypto.subtle.importKey(
+        "jwk",
+        jwkKey,
+        {
+            name: "RSASSA-PKCS1-v1_5",
+            hash: "SHA-256"
+        },
+        false,
+        ["sign"]
+    );
+
+    const enc = new TextEncoder();
+    const data = enc.encode(text);
+    const signatureBuffer = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", privateKey, data);
+
+    let binary = "";
+    const bytes = new Uint8Array(signatureBuffer);
+    for (let i = 0; i < bytes.byteLength; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary);
+}
+
+// =========================================================================
+// PAYHIP
+// =========================================================================
+async function verifyPayhip(licenseKey, secretKey, isPassive) {
+    try {
+        const url = `https://payhip.com/api/v2/license/verify?license_key=${encodeURIComponent(licenseKey)}`;
+        const res = await fetch(url, {
+            method: "GET",
+            headers: {
+                "product-secret-key": secretKey,
+                "User-Agent": "IceLicenseServer/1.0"
+            }
+        });
+
+        if (!res.ok) return null;
+        const json = await res.json();
+
+        if (json && json.data && json.data.enabled === true) {
+            if (!isPassive && json.data.uses >= 1) {
+                return { success: false, error: "AlreadyActivated" };
+            }
+
+            if (!isPassive) {
+                await fetch("https://payhip.com/api/v2/license/usage", {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "product-secret-key": secretKey,
+                        "User-Agent": "IceLicenseServer/1.0"
+                    },
+                    body: `license_key=${encodeURIComponent(licenseKey)}`
+                });
+            }
+
+            return {
+                success: true,
+                provider: "Payhip",
+                email: json.data.buyer_email || "",
+                uses: (json.data.uses || 0) + (isPassive ? 0 : 1),
+                date: json.data.date || "",
+                productName: json.data.product_name || ""
+            };
+        }
+    } catch (e) {
+        console.error("Payhip check error:", e);
+    }
+    return null;
+}
+
+// =========================================================================
+// GUMROAD
+// =========================================================================
+async function verifyGumroad(licenseKey, productId, isPassive) {
+    try {
+        const url = "https://api.gumroad.com/v2/licenses/verify";
+        const res = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "User-Agent": "IceLicenseServer/1.0"
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                license_key: licenseKey,
+                increment_uses_count: !isPassive
+            })
+        });
+
+        if (!res.ok) return null;
+        const json = await res.json();
+
+        if (json && json.success && json.purchase && !json.purchase.refunded && !json.purchase.chargebacked) {
+            if (!isPassive && json.uses > 1) {
+                return { success: false, error: "AlreadyActivated" };
+            }
+
+            return {
+                success: true,
+                provider: "Gumroad",
+                email: json.purchase.email || "",
+                uses: json.uses || 1,
+                date: json.purchase.created_at || "",
+                productName: json.purchase.product_name || ""
+            };
+        }
+    } catch (e) {
+        console.error("Gumroad check error:", e);
+    }
+    return null;
+}
+
+// =========================================================================
+// JINXXY
+// =========================================================================
+async function verifyJinxxy(licenseKey, apiKey, expectedProductId, isPassive, description, avatarName) {
+    try {
+        const listUrl = `https://api.creators.jinxxy.com/v1/licenses?key=${encodeURIComponent(licenseKey.trim())}`;
+        const listRes = await fetch(listUrl, {
+            method: "GET",
+            headers: {
+                "x-api-key": apiKey,
+                "User-Agent": "IceLicenseServer/1.0"
+            }
+        });
+
+        if (!listRes.ok) return null;
+        const listData = await listRes.json();
+        const items = listData?.results || listData?.data || (Array.isArray(listData) ? listData : []);
+        if (!items || items.length === 0) return null;
+
+        const licenseId = items[0].id;
+        if (!licenseId) return null;
+
+        const detailUrl = `https://api.creators.jinxxy.com/v1/licenses/${licenseId}`;
+        const detailRes = await fetch(detailUrl, {
+            headers: {
+                "x-api-key": apiKey,
+                "User-Agent": "IceLicenseServer/1.0"
+            }
+        });
+
+        if (!detailRes.ok) return null;
+        const detail = await detailRes.json();
+        if (!detail) return null;
+
+        if (detail.inventory_item?.order?.payment_status && detail.inventory_item.order.payment_status !== "PAID") {
+            return null;
+        }
+
+        const actualProductId = detail.inventory_item?.target_id || "";
+        const actualItemId = detail.inventory_item?.item?.id || "";
+        if (actualProductId !== expectedProductId && actualItemId !== expectedProductId) {
+            return null;
+        }
+
+        let uses = detail.activations?.total_count || 0;
+
+        // If active verification from Unity (!isPassive), register activation with custom description on Jinxxy
+        if (!isPassive && licenseId) {
+            const actDesc = (description || `LicenseManager - ${avatarName} | Unity`).substring(0, 255);
+            try {
+                const actRes = await fetch(`https://api.creators.jinxxy.com/v1/licenses/${licenseId}/activations`, {
+                    method: "POST",
+                    headers: {
+                        "x-api-key": apiKey,
+                        "Content-Type": "application/json",
+                        "User-Agent": "IceLicenseServer/1.0"
+                    },
+                    body: JSON.stringify({ description: actDesc })
+                });
+                if (actRes.ok) {
+                    uses += 1;
+                } else {
+                    console.error("Jinxxy activation error status:", actRes.status);
+                }
+            } catch (actErr) {
+                console.error("Jinxxy activation request failed:", actErr);
+            }
+        }
+
+        let buyerEmail = detail.buyer_email || "";
+        let date = detail.created_at || new Date().toISOString();
+
+        const orderId = detail.inventory_item?.order?.id;
+        if (orderId) {
+            try {
+                const orderRes = await fetch(`https://api.creators.jinxxy.com/v1/orders/${orderId}`, {
+                    headers: { "x-api-key": apiKey, "User-Agent": "IceLicenseServer/1.0" }
+                });
+                if (orderRes.ok) {
+                    const orderJson = await orderRes.json();
+                    if (orderJson.email) buyerEmail = orderJson.email;
+                    if (orderJson.paid_at) date = orderJson.paid_at;
+                }
+            } catch { }
+        }
+
+        return {
+            success: true,
+            provider: "Jinxxy",
+            email: buyerEmail,
+            uses: Math.max(uses, 1),
+            date: date,
+            productName: detail.inventory_item?.item?.name || "Jinxxy Product"
+        };
+    } catch (e) {
+        console.error("Jinxxy check error:", e);
+    }
+    return null;
+}
+
+// =========================================================================
+// DISCORD WEBHOOK NOTIFICATIONS
+// =========================================================================
+
+// 1. License Activation Notification
+async function sendDiscordLicenseNotification(info, webhookUrl) {
+    if (!webhookUrl) return;
+    try {
+        const maskedKey = info.key && info.key.length > 10
+            ? `${info.key.substring(0, 8)}...${info.key.substring(info.key.length - 4)}`
+            : info.key;
+
+        const embed = {
+            title: "🔑 New License Activated!",
+            color: 0x00f0ff,
+            fields: [
+                { name: "Avatar", value: `**${info.avatar}**`, inline: true },
+                { name: "Platform", value: `**${info.provider}**`, inline: true },
+                { name: "Uses", value: `${info.uses}`, inline: true },
+                { name: "VRChat / Info", value: info.description ? `\`${info.description}\`` : "*No info*", inline: false },
+                { name: "Buyer Email", value: info.email || "*Hidden / Not available*", inline: true },
+                { name: "Key", value: `\`${maskedKey}\``, inline: true }
+            ],
+            footer: { text: "Ice License Manager • License Activation" },
+            timestamp: new Date().toISOString()
+        };
+
+        await fetch(webhookUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: "Ice License Bot",
+                embeds: [embed]
+            })
+        });
+    } catch (err) {
+        console.error("Discord license notify error:", err);
+    }
+}
+
+// 2. VRChat SDK Avatar Upload / Build Notification
+async function sendDiscordUploadNotification(info, webhookUrl) {
+    if (!webhookUrl) return;
+    try {
+        const maskedKey = info.licenseKey && info.licenseKey.length > 10
+            ? `${info.licenseKey.substring(0, 8)}...${info.licenseKey.substring(info.licenseKey.length - 4)}`
+            : (info.licenseKey || "*None*");
+
+        const bpText = info.blueprintId && info.blueprintId.startsWith("avtr_")
+            ? `[${info.blueprintId}](https://vrchat.com/home/avatar/${info.blueprintId})`
+            : `\`${info.blueprintId || "New Avatar (Not assigned yet)"}\``;
+
+        const embed = {
+            title: "🚀 Avatar Upload / Build (VRChat SDK)",
+            color: 0x9b59b6,
+            fields: [
+                { name: "Avatar", value: `**${info.avatar || "Unknown"}**`, inline: true },
+                { name: "Platform", value: `**${info.platform || "Windows (PC)"}**`, inline: true },
+                { name: "VRChat User", value: `**${info.vrcUser || "Not Logged In"}**\n\`(${info.vrcUserId || "Unknown"})\``, inline: false },
+                { name: "Blueprint ID (VRChat)", value: bpText, inline: false },
+                { name: "Authorized License", value: `\`${maskedKey}\``, inline: true }
+            ],
+            footer: { text: "Ice License Manager • VRChat SDK Hook" },
+            timestamp: new Date().toISOString()
+        };
+
+        await fetch(webhookUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: "Ice License Bot",
+                embeds: [embed]
+            })
+        });
+    } catch (err) {
+        console.error("Discord upload notify error:", err);
+    }
+}

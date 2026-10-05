@@ -31,11 +31,13 @@
     --discord-hover: #4752c4;
     --gumroad-gradient: linear-gradient(135deg, #ff90e8 0%, #ff4b91 100%);
     --payhip-gradient: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+    --jinxxy-gradient: linear-gradient(135deg, #f40468 0%, #e601c0 100%);
     --nitro-gradient: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #8b5cf6 100%);
 
     
     --filter-gumroad: brightness(0) saturate(100%) invert(87%) sepia(26%) saturate(3596%) hue-rotate(279deg) brightness(103%) contrast(102%);
     --filter-payhip: brightness(0) saturate(100%) invert(73%) sepia(65%) saturate(3084%) hue-rotate(167deg) brightness(98%) contrast(98%);
+    --filter-jinxxy: brightness(0) saturate(100%) invert(20%) sepia(97%) saturate(5800%) hue-rotate(328deg) brightness(98%) contrast(106%);
     --filter-discord: brightness(0) saturate(100%) invert(55%) sepia(32%) saturate(1237%) hue-rotate(199deg) brightness(100%) contrast(96%);
     --filter-vrchat: brightness(0) saturate(100%) invert(80%) sepia(20%) saturate(4188%) hue-rotate(147deg) brightness(94%) contrast(99%);
     --filter-instagram: brightness(0) saturate(100%) invert(37%) sepia(81%) saturate(3458%) hue-rotate(328deg) brightness(99%) contrast(93%);
@@ -423,6 +425,11 @@ body {
     box-shadow: 0 8px 24px rgba(56, 189, 248, 0.15);
 }
 
+.link-card.jinxxy:hover {
+    border-color: rgba(244, 4, 104, 0.45);
+    box-shadow: 0 8px 24px rgba(244, 4, 104, 0.18);
+}
+
 .link-card.discord:hover {
     border-color: rgba(88, 101, 242, 0.45);
     box-shadow: 0 8px 24px var(--discord-glow);
@@ -504,6 +511,17 @@ body {
 .link-card-icon.payhip img,
 .link-card-icon.payhip .link-icon-img {
     filter: var(--filter-payhip);
+}
+
+.link-card-icon.jinxxy {
+    background: rgba(244, 4, 104, 0.15);
+    color: #f40468;
+    border: 1px solid rgba(244, 4, 104, 0.3);
+}
+
+.link-card-icon.jinxxy img,
+.link-card-icon.jinxxy .link-icon-img {
+    filter: var(--filter-jinxxy);
 }
 
 .link-card-icon.discord {
@@ -2458,6 +2476,19 @@ body {
     box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25);
 }
 
+.btn-store.jinxxy {
+    background: linear-gradient(135deg, rgba(244, 4, 104, 0.15) 0%, rgba(230, 1, 192, 0.22) 100%);
+    border-color: rgba(244, 4, 104, 0.35);
+    color: #f40468;
+}
+
+.btn-store.jinxxy:hover {
+    background: linear-gradient(135deg, rgba(244, 4, 104, 0.25) 0%, rgba(230, 1, 192, 0.35) 100%);
+    border-color: rgba(244, 4, 104, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(244, 4, 104, 0.25);
+}
+
 .btn-store:active {
     transform: scale(0.98);
 }
@@ -2828,6 +2859,18 @@ footer,
     filter: var(--filter-payhip) drop-shadow(0 0 6px rgba(56, 189, 248, 0.7));
 }
 
+.footer-social-btn.jinxxy:hover {
+    color: #f40468;
+    background: rgba(244, 4, 104, 0.18);
+    border-color: rgba(244, 4, 104, 0.45);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(244, 4, 104, 0.25);
+}
+
+.footer-social-btn.jinxxy:hover .footer-svg-icon {
+    filter: var(--filter-jinxxy) drop-shadow(0 0 6px rgba(244, 4, 104, 0.7));
+}
+
 .footer-social-btn.discord:hover {
     color: #818cf8;
     background: rgba(88, 101, 242, 0.18);
@@ -3029,6 +3072,11 @@ footer,
 
     .home-hub-grid {
         grid-template-columns: 1fr;
+    }
+
+    .stores-grid {
+        flex-direction: column;
+        gap: 9px;
     }
 
     .link-card {
